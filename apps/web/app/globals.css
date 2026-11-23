@@ -1,0 +1,160 @@
+@import "tailwindcss";
+@source "../../../packages/ui/src";
+
+/* Paleta de marca — antes repetida como hex sueltos ([#c71f1f], [#5c0d0d]…)
+   en cada página. Definirla acá genera automáticamente las utilidades
+   bg-brand-N, text-brand-N y border-brand-N (Tailwind v4, tokens @theme),
+   así que el resto del sitio puede referirse a un solo lugar en vez de
+   repetir hex. Los valores son los mismos que ya estaban en uso — esto no
+   cambia ningún color, solo le pone nombre.
+   Escala: 50/100 = fondos muy claros, 200 = bordes, 600 = acento primario
+   (botones/links), 700 = hover del acento, 900 = rojo oscuro de headings,
+   950 = casi negro de secciones hero/paneles. */
+@theme {
+  --color-brand-50: #fbf9f8;
+  --color-brand-100: #fdf7f5;
+  --color-brand-200: #eadede;
+  --color-brand-300: #d8c9c5;
+  --color-brand-600: #c71f1f;
+  --color-brand-700: #a71818;
+  --color-brand-900: #5c0d0d;
+  --color-brand-950: #240d0d;
+
+  --color-ink: #1c1717;
+  --color-ink-muted: #595252;
+  --color-ink-subtle: #776461;
+  --color-ink-faint: #8d6c65;
+
+  /* Dorado — el mismo acento que ya usaba el Header (#E8A33D) para el nav
+     activo y el avatar, ahora disponible en todo el sitio como segundo
+     color de marca junto al rojo. Rojo+dorado es la combinación real de la
+     Diablada/el Carnaval de Oruro, no un genérico "premium gold". */
+  --color-gold-400: #f0c674;
+  --color-gold-500: #e8a33d;
+  --color-gold-600: #c17f1f;
+
+  --color-night: #0c0908;
+  --color-night-soft: #1a1210;
+}
+
+/* Altura del header, en un solo lugar: la consumen tanto el header (su
+   propio alto, el espaciador del modo `solid`, el offset del backdrop
+   móvil) como el hero de home (el padding-top de su wrapper de contenido
+   en modo `overlay`) — así nunca se desincronizan. */
+:root {
+  --header-h: 4rem; /* 64px, igual a h-16 */
+  --font-display: Impact, "Arial Narrow", sans-serif;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --header-h: 4.5rem; /* 72px, igual a h-18 */
+  }
+}
+
+/* Titulares de alto impacto (Bebas Neue, cargada en app/layout.tsx) — antes
+   solo el logo del Header la usaba; ahora cualquier H1/H2 del sitio puede
+   pedirla con esta clase. Es un all-caps condensado, así que suma
+   tracking-wide para que no se sienta apretado a tamaños grandes. */
+.font-display {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: 0.01em;
+}
+
+/* Sombra "soft UI" para tarjetas premium — más presencia que un shadow-sm
+   plano, sin llegar al neumorfismo. Se usa en las piezas que quieren leerse
+   como la pieza principal de la sección (hero cards, CTAs destacados). */
+.shadow-premium {
+  box-shadow:
+    0 1px 2px rgba(28, 23, 23, 0.04),
+    0 8px 24px -4px rgba(28, 23, 23, 0.12),
+    0 2px 8px -2px rgba(199, 31, 31, 0.08);
+}
+
+/* Ritmo vertical consistente entre secciones de una página — reemplaza los
+   py-8/py-10/py-12/pt-[60px] ad hoc que había en cada página por una sola
+   escala de 3 pasos según cuánto "peso" tiene la sección. */
+.section-y {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+.section-y-lg {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+@media (min-width: 640px) {
+  .section-y {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+  .section-y-lg {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+/* Anillo pulsante detrás del pin de precio seleccionado en el mapa de
+   graderías (LeafletMap.tsx) — el icono se inyecta como HTML crudo fuera
+   del árbol de React (así funcionan los divIcon de Leaflet), así que la
+   animación vive acá en vez de en una clase de Tailwind. */
+@keyframes pin-pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+.pin-pulse-ring {
+  animation: pin-pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* globals.css */
+.leaflet-container {
+  z-index: 0 !important;
+}
+
+.leaflet-pane {
+  z-index: 0 !important;
+}
+
+.campo {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid #d8c9c5;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  color: #3d2b28;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.campo:focus {
+  border-color: #c71f1f;
+}
+
+.scrollbar-plano {
+  scrollbar-width: thin;
+  scrollbar-color: #c9b6b1 #f0e6e3;
+}
+
+.scrollbar-plano::-webkit-scrollbar {
+  height: 10px;
+}
+
+.scrollbar-plano::-webkit-scrollbar-track {
+  background: #f0e6e3;
+  border-radius: 999px;
+}
+
+.scrollbar-plano::-webkit-scrollbar-thumb {
+  background-color: #c9b6b1;
+  border-radius: 999px;
+}
+
+.scrollbar-plano::-webkit-scrollbar-thumb:hover {
+  background-color: #a08f8c;
+}

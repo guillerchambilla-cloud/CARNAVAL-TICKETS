@@ -1,0 +1,36 @@
+{
+  "name": "tickets-project",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.2",
+    "@types/google.maps": "^3.65.2",
+    "@types/leaflet": "^1.9.21",
+    "prettier": "^3.7.4",
+    "turbo": "^2.9.18",
+    "typescript": "5.9.2",
+    "web": "workspace:*"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "bun@1.2.11",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "@googlemaps/js-api-loader": "^2.1.1",
+    "animejs": "^4.5.0",
+    "leaflet": "^1.9.4",
+    "motion": "^12.43.0",
+    "react-leaflet": "^5.0.0",
+    "zod": "^4.4.3"
+  }
+}
